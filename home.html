@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
-    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/348105537a.js" crossorigin="anonymous"></script>
+    <script defer src="script.js" type="text/javascript"></script>
     <title>After School Club</title>
 </head>
+
 <body>
     <div id="app">
 
-        <header><h1>After School Club app</h1></header>
+        <header>
+            <h1 v-text="sitename"></h1>
+            <button>
+                {{itemInTheCart}}
+                <span class="fa-solid fa-cart-shopping">Checkout</span>
+            </button>
+
+        </header>
+        <figure>
+            <!--<img v-bind:src="img.png">-->
+        </figure>
+        <h2>Subject: {{lesson.title}}</h2>
+        <p>Location: {{lesson.location}}</p>
+        <p>Price: £{{lesson.price}}</p>
+        <p>Spaces available: {{lesson.space}}</p>
+
+        <input type="button" value="Add To The Cart" v-on:click="addItemToCart" />
     </div>
-    <main>
-        <figure><img v-bind:src="" alt=""></figure>
-    </main>
 </body>
+
 </html>
