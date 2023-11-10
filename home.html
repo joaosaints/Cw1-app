@@ -15,21 +15,45 @@
 
         <header>
             <h1 v-text="sitename"></h1>
-            <button>
+            <button v-on:click="showCheckout" v-if="showLesson">
                 {{itemInTheCart}}
-                <span class="fa-solid fa-cart-shopping">Checkout</span>
+                <span class="fa-solid fa-cart-shopping"> Checkout</span>
+            </button>
+            <button v-on:click="showCheckout" v-else>
+                <span class="fa-solid fa-house"> Back to home page</span>
             </button>
 
         </header>
-        <figure>
-            <!--<img v-bind:src="img.png">-->
-        </figure>
-        <h2>Subject: {{lesson.title}}</h2>
-        <p>Location: {{lesson.location}}</p>
-        <p>Price: £{{lesson.price}}</p>
-        <p>Spaces available: {{lesson.space}}</p>
-
-        <input type="button" value="Add To The Cart" v-on:click="addItemToCart" />
+        <main>
+            <div v-if="showLesson">
+                <figure>
+                    <!--<img v-bind:src="img.png">-->
+                </figure>
+                <h2>Subject: {{lesson.title}}</h2>
+                <p>Location: {{lesson.location}}</p>
+                <p>Price: £{{lesson.price}}</p>
+                <p>Spaces available: {{lesson.space}}</p>
+                <div v-if="lessonHaveSpace">
+                    <button v-on:click="addItemToCart">Add To The Cart</button>
+                    <span v-if="itemsLeft === 0">All out!</span>
+                    <span v-else-if="itemsLeft < 5">Only {{itemsLeft}} left!</span>
+                    <span v-else>Buy now!</span>
+                </div>
+                <div v-else>
+                    <button disabled="true">Add To The Cart</button>
+                    <span>You have added all available lessons of this subject!</span>
+                </div>
+            </div>
+            <div v-else>
+                <h2>Checkout page</h2>
+                <strong>Name: </strong>
+                <input type="text" v-model="order.name">
+                <strong>Surname: </strong>
+                <input type="text" v-model="order.surname">
+                <strong>Zip/Postal Code: </strong>
+                <input type="text" v-model="order.zip">
+            </div>
+        </main>
     </div>
 </body>
 
