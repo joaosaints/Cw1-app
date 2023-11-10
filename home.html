@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
     <script src="https://kit.fontawesome.com/348105537a.js" crossorigin="anonymous"></script>
-    <script defer src="products.js" type="text/javascript"></script>
+    <script src="products.js" type="text/javascript"></script>
     <title>After School Club</title>
 </head>
 
@@ -26,25 +26,21 @@
         </header>
         <main>
             <div v-if="showLesson">
-                <div v-for="products in lessons">
+                <div v-for="product in products">
                     <figure>
                         <!--<img v-bind:src="img.png">-->
                     </figure>
-                    <h2>Subject: {{products.title}}</h2>
-                    <p>Location: {{products.location}}</p>
-                    <p>Price: £{{products.price}}</p>
-                    <p>Spaces available: {{products.space}}</p>
-                </div>
-                <div v-if="lessonHaveSpace(products)">
-                    <button v-on:click="addItemToCart">Add To The Cart</button>
-                    <span v-if="itemsLeft === 0">All out!</span>
-                    <span v-else-if="itemsLeft < 5">Only {{itemsLeft}} left!</span>
+                    <h2>Subject: {{product.title}}</h2>
+                    <p>Location: {{product.location}}</p>
+                    <p>Price: £{{product.price}}</p>
+                    <p>Spaces available: {{product.space}}</p>
+                    <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The Cart</button>
+                    <button v-else disabled="true">Add To The Cart</button>
+                    <span v-if="itemsLeft(product) === 0">All out!</span>
+                    <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
                     <span v-else>Buy now!</span>
                 </div>
-                <div v-else>
-                    <button disabled="true">Add To The Cart</button>
-                    <span>You have added all available lessons of this subject!</span>
-                </div>
+
             </div>
             <div v-else>
                 <h2>Checkout page</h2>
@@ -62,7 +58,7 @@
             el: "#app",
             data: {
                 sitename: "After School Club app",
-                lessons: products.lessons,
+                products: products,
                 cart: [],
                 showLesson: true,
                 order: {
@@ -72,10 +68,11 @@
                 }
             },
             methods: {
-                addItemToCart: function (products) {
-                    this.cart.push(products.id);
+                addItemToCart: function (product) {
+                    this.cart.push(product.id);
+                    product.space--;
                 },
-    
+
                 showCheckout: function () {
                     if (this.showLesson) {
                         this.showLesson = false
@@ -83,23 +80,29 @@
                         this.showLesson = true
                     }
                 },
-                lessonHaveSpace(products) {
-                    return products.space > this.itemInTheCart;
+                lessonHaveSpace(product) {
+                    return product.space > this.cartCount(product.id);
+                },
+                cartCount(id) {
+                    let count = 0;
+                    for (let i = 0; i < this.cart.length; i++) {
+                        if (this.cart[i] === id) {
+                            return count++;
+                        }
+                    }
+                    return count;
+                },
+                itemsLeft(product) {
+                    return product.space - this.cartCount(product.id);
                 }
             },
             computed: {
                 itemInTheCart: function () {
                     return this.cart.length || "";
-                },
-    
-                itemsLeft() {
-                    return this.lessons.space - this.itemInTheCart;
                 }
             }
         });
     </script>
-    
 </body>
-
 
 </html>

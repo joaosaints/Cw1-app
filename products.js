@@ -1,71 +1,83 @@
-let lessons = [{
-    id: 1,
-    title: "Maths",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-},{
-    id: 2,
-    title: "English",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-},{
-    id: 3,
-    title: "Chemistry",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-},{
-    id: 4,
-    title: "Software Engineering",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-},{
-    id: 5,
-    title: "History",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-},{
-    id: 6,
-    title: "Arts",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-},{
-    id: 7,
-    title: "Dance",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-},{
-    id: 8,
-    title: "Martial Arts",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-},{
-    id: 9,
-    title: "Sports",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-},{
-    id: 10,
-    title: "Law",
-    location: "London",
-    price: 50,
-    space: 10,
-    image: ""
-}];
+let products = [
+    {
+        "id": 1001,
+        "title": "Maths",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    },
+    {
+        "id": 1002,
+        "title": "English",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    },
+    {
+        "id": 1003,
+        "title": "Chemistry",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    },
+    {
+
+        "id": 1004,
+        "title": "Software Engineering",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    },
+    {
+        "id": 1005,
+        "title": "History",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    },
+    {
+        "id": 1006,
+        "title": "Arts",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    },
+    {
+        "id": 1007,
+        "title": "Dance",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    },
+    {
+        "id": 1008,
+        "title": "Martial Arts",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    },
+    {
+        "id": 1009,
+        "title": "Sports",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    },
+    {
+        "id": 1010,
+        "title": "Law",
+        "location": "London",
+        "price": 50,
+        "space": 10,
+        "image": "",
+    }
+]
