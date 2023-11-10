@@ -68,4 +68,4 @@ let lessons = [{
     price: 50,
     space: 10,
     image: ""
-}]
+}];

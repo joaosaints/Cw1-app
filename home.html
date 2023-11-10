@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
     <script src="https://kit.fontawesome.com/348105537a.js" crossorigin="anonymous"></script>
-    <script defer src="script.js" type="text/javascript"></script>
     <script defer src="products.js" type="text/javascript"></script>
     <title>After School Club</title>
 </head>
@@ -27,16 +26,16 @@
         </header>
         <main>
             <div v-if="showLesson">
-                <div v-for="lessons in lesson">
+                <div v-for="products in lessons">
                     <figure>
                         <!--<img v-bind:src="img.png">-->
                     </figure>
-                    <h2>Subject: {{lessons.title}}</h2>
-                    <p>Location: {{lessons.location}}</p>
-                    <p>Price: £{{lessons.price}}</p>
-                    <p>Spaces available: {{lessons.space}}</p>
+                    <h2>Subject: {{products.title}}</h2>
+                    <p>Location: {{products.location}}</p>
+                    <p>Price: £{{products.price}}</p>
+                    <p>Spaces available: {{products.space}}</p>
                 </div>
-                <div v-if="lessonHaveSpace">
+                <div v-if="lessonHaveSpace(products)">
                     <button v-on:click="addItemToCart">Add To The Cart</button>
                     <span v-if="itemsLeft === 0">All out!</span>
                     <span v-else-if="itemsLeft < 5">Only {{itemsLeft}} left!</span>
@@ -58,6 +57,49 @@
             </div>
         </main>
     </div>
+    <script>
+        let schoolapp = new Vue({
+            el: "#app",
+            data: {
+                sitename: "After School Club app",
+                lessons: products.lessons,
+                cart: [],
+                showLesson: true,
+                order: {
+                    name: "",
+                    surname: "",
+                    zip: "",
+                }
+            },
+            methods: {
+                addItemToCart: function (products) {
+                    this.cart.push(products.id);
+                },
+    
+                showCheckout: function () {
+                    if (this.showLesson) {
+                        this.showLesson = false
+                    } else {
+                        this.showLesson = true
+                    }
+                },
+                lessonHaveSpace(products) {
+                    return products.space > this.itemInTheCart;
+                }
+            },
+            computed: {
+                itemInTheCart: function () {
+                    return this.cart.length || "";
+                },
+    
+                itemsLeft() {
+                    return this.lessons.space - this.itemInTheCart;
+                }
+            }
+        });
+    </script>
+    
 </body>
+
 
 </html>
