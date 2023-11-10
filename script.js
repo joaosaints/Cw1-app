@@ -2,14 +2,7 @@ let schoolapp = new Vue({
     el: "#app",
     data: {
         sitename: "After School Club app",
-        lesson: {
-            id: 1,
-            title: "Maths",
-            location: "London",
-            price: 50,
-            space: 10,
-            image: ""
-        },
+        lesson: lessons,
         cart: [],
         showLesson: true,
         order: {
