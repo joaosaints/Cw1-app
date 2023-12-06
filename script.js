@@ -17,7 +17,7 @@ let schoolapp = new Vue({
         showLesson: true,
         //variable to store user input
         sortOption: "price",
-        sortOrder: "asc",
+        sortOrder: 1,
         searchInput: "",
         //save user details for order
         order: {
@@ -91,109 +91,26 @@ let schoolapp = new Vue({
             alert('Thank you, the order is placed!');
             location.reload();
         },
-
-        search() {
-            let query = this.searchInput.toLowerCase();
-            return this.products.filter(product => {
-                return (product.title.toLowerCase().includes(query) ||
-                    product.location.toLowerCase().includes(query))
-            })
-        }
     },
     computed: {
         //counts the cart[] length and returns it
-        searchedLessons: function() {
+        searchedAndSortedLessons: function() {
+            let result = this.products;
             let query = this.searchInput.toLowerCase();
             if(query!==""){
-                return this.products.filter(product => {
+                result = result.filter(product => {
                     return (product.title.toLowerCase().includes(query) ||
                         product.location.toLowerCase().includes(query))
                 })
             }
-            return this.products;
+            return result.sort((a, b) => {
+                return this.sortOrder * (a[this.sortOption] > b[this.sortOption] ? 1 : -1);
+            });
         },
         itemInTheCart: function () {
             return this.cart.length || "";
         },
         //sorting price ascending
-        sortPriceL() {
-            function compare(x, y) {
-                if (x.price > y.price) return 1;
-                if (x.price < y.price) return -1;
-                return 0;
-            }
-            return this.products.sort(compare);
-        },
-        //sorting price descending
-        sortPriceH() {
-            function compare(x, y) {
-                if (x.price < y.price) return 1;
-                if (x.price > y.price) return -1;
-                return 0;
-            }
-            return this.products.sort(compare);
-        },
-        //sorting name ascending
-        sortNameL() {
-            function compare(x, y) {
-                if (x.title > y.title) return 1;
-                if (x.title < y.title) return -1;
-                return 0;
-            }
-            return this.products.sort(compare);
-        },
-        //sorting name descending
-        sortNameH() {
-            function compare(x, y) {
-                if (x.title < y.title) return 1;
-                if (x.title > y.title) return -1;
-                return 0;
-            }
-            return this.products.sort(compare);
-
-        },
-        //sorting location ascending
-        sortLocL() {
-            function compare(x, y) {
-                if (x.location > y.location) return 1;
-                if (x.location < y.location) return -1;
-                return 0;
-            }
-            return this.products.sort(compare);
-
-        },
-        //sorting location descending
-        sortLocH() {
-            function compare(x, y) {
-                if (x.location < y.location) return 1;
-                if (x.location > y.location) return -1;
-                return 0;
-            }
-            return this.products.sort(compare);
-
-        },
-        //sorting space ascending
-        sortSpaceL() {
-            function compare(x, y) {
-                if (x.space > y.space) return 1;
-                if (x.space < y.space) return -1;
-                return 0;
-            }
-            return this.products.sort(compare);
-
-        },
-        //sorting space descending
-        sortSpaceH() {
-            function compare(x, y) {
-                if (x.space < y.space) return 1;
-                if (x.space > y.space) return -1;
-                return 0;
-            }
-            return this.products.sort(compare);
-
-
-
-        },
         //validate checkout inputs
         checkoutVali() {
             return (!nameRE.test(this.order.name) || !phoneRE.test(this.order.phone));

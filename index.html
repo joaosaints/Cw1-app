@@ -44,162 +44,31 @@
                 <p>Sort:
                     <select v-model="sortOption">
                         <option value="price">Price</option>
-                        <option value="subject">Subject</option>
+                        <option value="title">Subject</option>
                         <option value="location">Location</option>
-                        <option value="availability">availablity</option>
+                        <option value="space">Availability</option>
                     </select>
                     <br>
                     <select v-model="sortOrder">
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
+                        <option value="1">Ascending</option>
+                        <option value="-1">Descending</option>
                     </select>
             </p>
             <!-- if no sort option is clicked then the lesson will display by ID but if the options are selected it will show sorted-->
-                <div v-if="sortOption2 ==='' && sortOption1===''">
-                    <!-- displaying all lessons and it's values-->
-                    <div v-for="product in searchedLessons">
-                        <figure><img v-bind:src="product.image"></figure>
-                        <h2>Subject: {{product.title}}</h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: £{{product.price}}</p>
-                        <p>Spaces available: {{product.space}}</p>
-                        <!-- if the lesson has any space available will add a lesson to the cart and take 1 from space, if 0 space in the lesson button is disabled-->
-                        <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
-                            Cart</button>
-                        <button v-else disabled="true">Add To The Cart</button>
-                        <!-- if fields are less then 5 or 0 show different message-->
-                        <span v-if="itemsLeft(product) === 0">All out!</span>
-                        <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
-                        <span v-else>Buy now!</span>
-                    </div>
-                </div>
-                <!-- sorting price ascending-->
-                <div v-else-if="sortOption2==='priceR' && sortOption1==='asc'">
-                    <div v-for="product in sortPriceL">
-                        <figure><img v-bind:src="product.image"></figure>
-                        <h2>Subject: {{product.title}}</h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: £{{product.price}}</p>
-                        <p>Spaces available: {{product.space}}</p>
-                        <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
-                            Cart</button>
-                        <button v-else disabled="true">Add To The Cart</button>
-                        <span v-if="itemsLeft(product) === 0">All out!</span>
-                        <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
-                        <span v-else>Buy now!</span>
-                    </div>
-                </div>
-                <!-- sorting price descending-->
-                <div v-else-if="sortOption2==='priceR' && sortOption1==='desc'">
-                    <div v-for="product in sortPriceH">
-                        <figure><img v-bind:src="product.image"></figure>
-                        <h2>Subject: {{product.title}}</h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: £{{product.price}}</p>
-                        <p>Spaces available: {{product.space}}</p>
-                        <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
-                            Cart</button>
-                        <button v-else disabled="true">Add To The Cart</button>
-                        <span v-if="itemsLeft(product) === 0">All out!</span>
-                        <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
-                        <span v-else>Buy now!</span>
-                    </div>
-                </div>
-                <!-- sorting name ascending-->
-                <div v-else-if="sortOption2==='nameR' && sortOption1==='asc'">
-                    <div v-for="product in sortNameL">
-                        <figure><img v-bind:src="product.image"></figure>
-                        <h2>Subject: {{product.title}}</h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: £{{product.price}}</p>
-                        <p>Spaces available: {{product.space}}</p>
-                        <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
-                            Cart</button>
-                        <button v-else disabled="true">Add To The Cart</button>
-                        <span v-if="itemsLeft(product) === 0">All out!</span>
-                        <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
-                        <span v-else>Buy now!</span>
-                    </div>
-                </div>
-                <!-- sorting name descending-->
-                <div v-else-if="sortOption2==='nameR' && sortOption1==='desc'">
-                    <div v-for="product in sortNameH">
-                        <figure><img v-bind:src="product.image"></figure>
-                        <h2>Subject: {{product.title}}</h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: £{{product.price}}</p>
-                        <p>Spaces available: {{product.space}}</p>
-                        <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
-                            Cart</button>
-                        <button v-else disabled="true">Add To The Cart</button>
-                        <span v-if="itemsLeft(product) === 0">All out!</span>
-                        <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
-                        <span v-else>Buy now!</span>
-                    </div>
-                </div>
-                <!-- sorting location ascending-->
-                <div v-else-if="sortOption2==='locR' && sortOption1==='asc'">
-                    <div v-for="product in sortLocL">
-                        <figure><img v-bind:src="product.image"></figure>
-                        <h2>Subject: {{product.title}}</h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: £{{product.price}}</p>
-                        <p>Spaces available: {{product.space}}</p>
-                        <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
-                            Cart</button>
-                        <button v-else disabled="true">Add To The Cart</button>
-                        <span v-if="itemsLeft(product) === 0">All out!</span>
-                        <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
-                        <span v-else>Buy now!</span>
-                    </div>
-                </div>
-                <!-- sorting location descending-->
-                <div v-else-if="sortOption2==='locR' && sortOption1==='desc'">
-                    <div v-for="product in sortLocH">
-                        <figure><img v-bind:src="product.image"></figure>
-                        <h2>Subject: {{product.title}}</h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: £{{product.price}}</p>
-                        <p>Spaces available: {{product.space}}</p>
-                        <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
-                            Cart</button>
-                        <button v-else disabled="true">Add To The Cart</button>
-                        <span v-if="itemsLeft(product) === 0">All out!</span>
-                        <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
-                        <span v-else>Buy now!</span>
-                    </div>
-                </div>
-                <!-- sorting space ascending-->
-                <div v-else-if="sortOption2==='spaceR' && sortOption1==='asc'">
-                    <div v-for="product in sortSpaceL">
-                        <figure><img v-bind:src="product.image"></figure>
-                        <h2>Subject: {{product.title}}</h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: £{{product.price}}</p>
-                        <p>Spaces available: {{product.space}}</p>
-                        <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
-                            Cart</button>
-                        <button v-else disabled="true">Add To The Cart</button>
-                        <span v-if="itemsLeft(product) === 0">All out!</span>
-                        <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
-                        <span v-else>Buy now!</span>
-                    </div>
-                </div>
-                <!-- sorting space descending-->
-                <div v-else-if="sortOption2==='spaceR' && sortOption1==='desc'">
-                    <div v-for="product in sortSpaceH">
-                        <figure><img v-bind:src="product.image"></figure>
-                        <h2>Subject: {{product.title}}</h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: £{{product.price}}</p>
-                        <p>Spaces available: {{product.space}}</p>
-                        <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
-                            Cart</button>
-                        <button v-else disabled="true">Add To The Cart</button>
-                        <span v-if="itemsLeft(product) === 0">All out!</span>
-                        <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
-                        <span v-else>Buy now!</span>
-                    </div>
+                <div v-for="product in searchedAndSortedLessons">
+                    <figure><img v-bind:src="product.image"></figure>
+                    <h2>Subject: {{product.title}}</h2>
+                    <p>Location: {{product.location}}</p>
+                    <p>Price: £{{product.price}}</p>
+                    <p>Spaces available: {{product.space}}</p>
+                    <!-- if the lesson has any space available will add a lesson to the cart and take 1 from space, if 0 space in the lesson button is disabled-->
+                    <button v-if="lessonHaveSpace(product)" v-on:click="addItemToCart(product)">Add To The
+                        Cart</button>
+                    <button v-else disabled="true">Add To The Cart</button>
+                    <!-- if fields are less then 5 or 0 show different message-->
+                    <span v-if="itemsLeft(product) === 0">All out!</span>
+                    <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
+                    <span v-else>Buy now!</span>
                 </div>
             </div>
             <!-- checkout page in case showLesson is false-->
