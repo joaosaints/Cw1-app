@@ -115,7 +115,7 @@ let schoolapp = new Vue({
         checkoutVali() {
             return (!nameRE.test(this.order.name) || !phoneRE.test(this.order.phone));
         },
-        //my search but doesnt work for some reason, first I convert every string into lower cases
+//my search but doesnt work for some reason, first I convert every string into lower cases
         //query gets input in all lowercases then with the use of filter I compare both strings and returns if they match
         
 
